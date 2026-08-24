@@ -1,4 +1,5 @@
-<section class="welcome">
+<template>
+    <section class="welcome">
     <div>
         <img src="../Pictures/Background.jpg" alt="Background">
     </div>
@@ -8,7 +9,12 @@
         <p>Military inspired phone cases designed for everyday life.</p>
 
         <div class="welcome-buttons">
-            <a href="#" class="btn">Shop Now</a>
+            <RouterLink to="/Shop" class="btn">Shop Now</RouterLink>
         </div>
     </div>
-</section>
+    </section>
+</template>
+
+<style scoped>
+
+</style>

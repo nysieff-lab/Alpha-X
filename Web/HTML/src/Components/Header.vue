@@ -12,10 +12,10 @@
             
             <div class="icons">        
                 <a href="#"><i class="material-icons">search</i></a>  
-                <div class="Cart-Container">
+                <div class="cart-container">
                     <a href="#"><i class="material-icons">shopping_cart</i></a>
                         <!--number of items in cart here-->
-                    <span class="number">0</span>
+                    <span class="cart-quantity">{{ 0 }}</span>
                 </div>
                 <a href="#"><i class="material-icons">account_circle</i></a>
             </div>
