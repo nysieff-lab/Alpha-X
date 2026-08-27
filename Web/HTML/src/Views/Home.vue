@@ -1,7 +1,7 @@
 <template>
     <section class="welcome">
     <div>
-        <img src="../Pictures/Background.jpg" alt="Background">
+        <img src="../Assets/Images/Background.jpg" alt="Background">
     </div>
     <div class="welcome-content">
         <h1 class="brand">Alpha X</h1>
@@ -16,5 +16,5 @@
 </template>
 
 <style scoped>
-
+    @import '../Assets/Home.css';
 </style>

@@ -2,7 +2,7 @@
     <header>
         <nav class="navbar">
             <RouterLink to="/" class="logo">
-                <img src="../Pictures/Logo V3.png" alt="AX Logo"><!--Fix Photo-->
+                <img src="../Assets/Images/Logo V3.png" alt="AX Logo"><!--Fix Photo-->
             </RouterLink>
             <ul class="nav-links">
                 <li><RouterLink to="/">Home</RouterLink></li>
