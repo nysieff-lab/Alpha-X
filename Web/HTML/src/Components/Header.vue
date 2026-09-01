@@ -13,11 +13,11 @@
             <div class="icons">        
                 <a href="#"><i class="material-icons">search</i></a>  
                 <div class="cart-container">
-                    <a href="#"><i class="material-icons">shopping_cart</i></a>
+                    <RouterLink to="/Cart"><i class="material-icons">shopping_cart</i></RouterLink>
                         <!--number of items in cart here-->
                     <span class="cart-quantity">{{ 0 }}</span>
                 </div>
-                <a href="#"><i class="material-icons">account_circle</i></a>
+                <RouterLink to="/Login"><i class="material-icons">account_circle</i></RouterLink>
             </div>
         </nav>
     </header>
