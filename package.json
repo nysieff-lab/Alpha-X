@@ -1,0 +1,25 @@
+{
+  "name": "alpha-x",
+  "version": "1.0.0",
+  "description": "Alpha X is an e-commerce store selling custom branded tactical phone cases for various phone models. \r Customers can visit our website and browse our store where they can select the items that they wish to purchase from us and add them to their cart. \r They then fill out their contact details on the checkout page and then place their order, and an invoice is then generated for them. \r Our website allows customers to view items by various categories, see the detailed view of each product and then add the item and quantity to the cart from this view.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nysieff-lab/Alpha-X.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/nysieff-lab/Alpha-X/issues"
+  },
+  "homepage": "https://github.com/nysieff-lab/Alpha-X#readme",
+  "dependencies": {
+    "better-sqlite3": "^13.0.3",
+    "express": "^5.2.1"
+  }
+}
