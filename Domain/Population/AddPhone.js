@@ -1,4 +1,7 @@
-const db = require("./Database.JS");
+//Used by IT to add a new Phone Models to the DB.
+//Does not connect to UI.
+
+const db = require("../Database/Database.JS");
 
 /*db.exec(`
     INSERT INTO Phone (Brand, Series, PhoneModel) 
