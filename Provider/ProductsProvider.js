@@ -2,8 +2,8 @@
 
 const db = require("../Domain/Database/Database.JS");
 
-    CaseModel = ''; // temp for testing remove when intagrating to front end via API
-    Brand = 'Apple'; // temp for testing remove when intagrating to front end via API.
+    //CaseModel = ''; // temp for testing remove when intagrating to front end via API
+   // Brand = 'Apple'; // temp for testing remove when intagrating to front end via API.
 
 function GetProducts(Brand, Brand, CaseModel, CaseModel) {
     Products = db.prepare(`
@@ -34,5 +34,7 @@ function GetProducts(Brand, Brand, CaseModel, CaseModel) {
     return Products
 }
 
-GetProducts(Brand, Brand, CaseModel, CaseModel) // REMOVE
-console.log(Products) //REMOVE
+/*GetProducts(Brand, Brand, CaseModel, CaseModel) // REMOVE
+console.log(Products) //REMOVE */
+
+module.exports = GetProducts;
