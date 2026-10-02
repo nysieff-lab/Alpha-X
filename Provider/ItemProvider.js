@@ -15,18 +15,18 @@ function GetItem(PhoneModel,CaseModel) {
         c.ProductID,
         c.[CaseModel],
         c.Colour,
+        c.StockQuantity,
         c.Price,
         c.Image,
         c.Description
         FROM Phone a
         JOIN Product c
         ON a.PhoneID = c.PhoneID
-        WHERE a.PhoneModel = ? AND c.CaseModel = ?
+        WHERE a.PhoneModel = ? AND c.CaseModel = ?;
         `).all(PhoneModel,CaseModel);
     return Item
 }
 
-// add quantity??
 function GetCartItem(ProductID) {
     CartItem = db.prepare(`
         SELECT
@@ -37,7 +37,8 @@ function GetCartItem(ProductID) {
         c.ProductID,
         c.[CaseModel],
         c.Colour,
-        c.Price
+        c.Price,
+        c.StockQuantity
         FROM Phone a
         JOIN Product c
         ON a.PhoneID = c.PhoneID

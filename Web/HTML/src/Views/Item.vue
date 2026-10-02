@@ -2,7 +2,7 @@
     <section>
         <div class="product-container">
             <div class="product-image">
-                <img src="../Assets/Images/Carbon_Series_Grid.png" alt="phone case"> <!--TEMPORY IMAGE WHILE STILL IN DEVELOPMENT. Must get from DB-->
+                <img src="../Assets/Images/Carbon_Series_Grid.png" alt="phone case"> <!--TEMPORY IMAGE WHILE STILL IN DEVELOPMENT. Must get from DB {{ Item[0]?.Image }}-->
             </div>
 
             <div class="product-details">
@@ -16,7 +16,7 @@
                     </select><br/>
                 </div>
                 <div>
-                    <button  class="btn" v-on:click="AddtoCart()">Add to Cart</button>
+                    <button  class="btn" v-on:click="AddtoCart(SelectedColour)">Add to Cart</button>
                 </div>
                 <div class="description">
                         {{ productdescription }}<p>NB. This description is for testing purposes and should be removed. Some products have a tempory description.</p>
@@ -31,10 +31,10 @@
 import { ref } from 'vue';
 import { onMounted } from 'vue';
 import { useRoute } from 'vue-router';
+import { AddtoCart } from '@/Functions/Cart';
 
 const route = useRoute();
 const Item = ref([]);
-const CartItem = ref([]);
 const SelectedColour = ref('')
 const productdescription = ref('')
 
@@ -70,32 +70,6 @@ function showdescription() {
     } else { 
         productdescription.value = ''; 
     }
-}
-
-async function getCartItem() {
-    const ProductID = SelectedColour.value
-    console.log(ProductID); //remove  
-    try {
-        const response = await fetch("http://Localhost:3000/api/cartitem",{
-             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                ProductID: ProductID
-            })
-        });
-        CartItem.value = await response.json();
-        console.log(CartItem.value) //rewmove
-    } catch (error) {
-        console.error("Could not acces Cart Item:", error);
-    }
-}
-
-//needs alot of work
-//pulls the item from the data base and then it should push it to the cart in local storage. should push the quantity as one 
-function AddtoCart() {
-       getCartItem()
 }
 
 onMounted(() => {

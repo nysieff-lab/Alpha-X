@@ -15,10 +15,14 @@
                 <div class="cart-container">
                     <RouterLink to="/Cart"><i class="material-icons">shopping_cart</i></RouterLink>
                         <!--number of items in cart here-->
-                    <span class="cart-quantity">{{ 0 }}</span>
+                    <span class="cart-quantity">{{ CartQuantity }}</span>
                 </div>
                 <RouterLink to="/Login"><i class="material-icons">account_circle</i></RouterLink>
             </div>
         </nav>
     </header>
 </template>
+
+<script setup>
+import { CartQuantity} from '@/Functions/Cart';
+</script>

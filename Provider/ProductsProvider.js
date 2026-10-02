@@ -19,7 +19,8 @@ function GetProducts(Brand, Brand, CaseModel, CaseModel) {
         FROM Phone p
         JOIN Product c
         ON p.PhoneID = c.PhoneID
-        WHERE (? = '' OR p.Brand = ?) 
+        WHERE c.StockQuantity > 0
+        AND (? = '' OR p.Brand = ?) 
         AND (? = '' OR c.CaseModel = ?)
         GROUP BY
             p.PhoneID,
