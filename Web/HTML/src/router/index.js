@@ -1,5 +1,6 @@
 import About from '@/Views/About.vue'
 import Cart from '@/Views/Cart.vue'
+import Checkout from '@/Views/Checkout.vue'
 import Home from '@/Views/Home.vue'
 import Item from '@/Views/Item.vue'
 import Login from '@/Views/Login.vue'
@@ -38,6 +39,11 @@ const router = createRouter({
       path:'/Item/:Brand/:Series/:PhoneModel/:CaseModel/:PhoneID/:ProductID',
       name: 'Item',
       component: Item
+    },
+    {
+      path: '/Checkout',
+      name: 'Checkout',
+      component: Checkout
     }
   ],
   scrollBehavior() {

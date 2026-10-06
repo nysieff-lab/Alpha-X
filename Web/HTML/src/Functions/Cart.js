@@ -17,6 +17,7 @@ export function UpdateCart() {
 }
 
 //Gets the item from DB for Cart
+//Using AJAX to fetch each cart item with JSON, Then passing it to localstorage
 async function getCartItem(ProductID) {
     //const ProductID = SelectedColour.value
     console.log(ProductID); //remove  
@@ -69,4 +70,15 @@ export async function AddtoCart(ProductID) {
     localStorage.setItem("Cart", JSON.stringify(Cart));
     console.log("Cart:", Cart);//remove
     UpdateCart();
+}
+
+// Load cart from localStorage
+export function loadCart() {
+    Cart.value = JSON.parse(localStorage.getItem("Cart")) || [];
+}
+
+//calculates the cost of each item
+export function CalculateTotal(CartItem){
+    const TotalItemCost = CartItem.Price * CartItem.Quantity
+    return TotalItemCost
 }

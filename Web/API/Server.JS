@@ -6,6 +6,7 @@ const ProductsRouter = require('./Routes/GetProductsAPI.js');
 const ItemRouter = require('./Routes/GetItemAPI.js');
 const CartItemRouter = require('./Routes/GetCartItemAPI.js');
 const LoginsRouter = require('./Routes/GetLoginAPI.js');
+const CheckoutDataRouter = require('./Routes/GetCheckoutDataAPI.js');
 
 app.use(cors({
     origin: "http://localhost:5173"
@@ -19,6 +20,7 @@ app.use('/api/products', ProductsRouter);
 app.use('/api/item', ItemRouter);
 app.use('/api/cartitem', CartItemRouter);
 app.use('/api/login', LoginsRouter);
+app.use('/api/checkout', CheckoutDataRouter);
 
 app.listen(3000, () => {
     console.log('server is running on http://localhost:3000');

@@ -38,6 +38,7 @@ const Item = ref([]);
 const SelectedColour = ref('')
 const productdescription = ref('')
 
+//used AJAX here to fetch item with JSON
 async function getItem() {
     //Gets from route
     const PhoneModel = route.params.PhoneModel;

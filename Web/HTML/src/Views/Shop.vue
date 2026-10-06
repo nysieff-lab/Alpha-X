@@ -58,6 +58,8 @@ const CaseModel = ref('');
 const Products = ref([]);
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+//Uses AJAX call to fetch the products for the grid with JSON
+//Demonstrated with the sleep function
 async function getProducts() {
     Products.value = ''
    await sleep(100);

@@ -1,5 +1,5 @@
 <template>
-    <div class="cart-container">
+    <div v-if="CartQuantity>0" class="cart-container">
         <section class="cart-items">
             <div class="cart-header">
                 <h3>Product</h3>
@@ -7,7 +7,6 @@
                 <h3>Quantity</h3>
                 <h3>Total</h3>
             </div>
-            <!--Must use a loop to load cart on condition theres items in the cart else an error message is displayed-->
             
             <div class="cart-card" v-for="CartItem in Cart" :key="CartItem.ProductID"> 
                 <img src="../Assets/Images/Carbon_Series_Grid.png"> <!--FOr design purposes-->
@@ -27,25 +26,36 @@
             <div class="summary">
                 <h3>Cart Summary</h3><br/><hr/><br/>
                 <p>Items in cart: {{ CartQuantity }}</p><br/> 
-                <p>SubTotal: R{{ CartTotal.SubTotal }}</p>
-                <p>Delivery: R{{CartTotal.Delivery}}</p><br/>
+                <p>SubTotal: R{{ SummaryData.SubTotal }}</p>
+                <p>Delivery: R{{SummaryData.Delivery}}</p><br/>
                 <hr/><br/>
-                <p class="total">Total: R{{ CartTotal.Total }}</p>
+                <p class="total">Total: R{{ SummaryData.Total }}</p>
             </div>
-            <button class="btn">Check Out</button>
+            <RouterLink to="/Checkout"><button class="btn">Check Out</button></RouterLink>
+        </section>
+    </div>
+
+    <div v-else class="cart-container">
+        <section></section> <!--REMOVE-->
+        <section>
+            <h1>Shopping Cart</h1>
+            <p>Your Cart is Currently empty.</p>
+            <RouterLink to="/Shop"><button class="btn">Continue Shopping</button></RouterLink>
         </section>
     </div>
 </template>
 
 <script setup>
-import { CartQuantity } from '@/Functions/Cart';
-import  {computed, ref} from 'vue';
+import { CalculateTotal, CartQuantity } from '@/Functions/Cart';
+import  {ref} from 'vue';
 import {onMounted} from 'vue';
 import { UpdateCart } from '@/Functions/Cart';
+import { loadCart } from '@/Functions/Cart';
 
 const Cart = ref(
     JSON.parse(localStorage.getItem('Cart')) || []
 );
+const SummaryData = ref({});
 
 function DecreaseQuantity(ProductID){
     const CartItem = Cart.value.find(CartItem => CartItem.ProductID === ProductID);
@@ -57,6 +67,7 @@ function DecreaseQuantity(ProductID){
         localStorage.setItem('Cart', JSON.stringify(Cart.value));
     }
     UpdateCart();
+    GetSummaryData();
 };
 
 function IncreaseQuantity(ProductID) {
@@ -71,6 +82,7 @@ function IncreaseQuantity(ProductID) {
         window.alert("Max Stock Reached. There are only "+CartItem.StockQuantity+" Available");
     }
     UpdateCart();
+    GetSummaryData();
 };
 
 //Removves an item from cart
@@ -78,35 +90,29 @@ function RemoveItem(ProductID) {
     Cart.value = Cart.value.filter(CartItem => CartItem.ProductID !== ProductID);
     localStorage.setItem('Cart', JSON.stringify(Cart.value));
     UpdateCart();
+    GetSummaryData();
 };
 
-//calculates the cost of each item
-function CalculateTotal(CartItem){
-    const TotalItemCost = CartItem.Price * CartItem.Quantity
-    return TotalItemCost
+//uses AJAX call to fetch data with JSON
+async function GetSummaryData() {
+     try {
+        const response = await fetch("http://localhost:3000/api/checkout", {
+            method: "POST",
+            headers: {
+                "Content-Type":"application/json"
+            },
+            body: JSON.stringify(Cart.value)
+        });
+        SummaryData.value = await response.json();
+     } catch (error) {
+        console.error("Error getting Data:", error);
+     }
 }
-
-//calculates total cosdt for cart cart summary
-//Actual prices for invoice will be calculated on the backend
-const CartTotal = computed(() => {
-    const Delivery = 150;
-    let SubTotal = 0;
-    for (let Index = 0; Index < Cart.value.length; Index++) {
-        SubTotal = SubTotal + Cart.value[Index].Price * Cart.value[Index].Quantity;
-    }
-    const Total = SubTotal + Delivery
-    return {SubTotal,Delivery,Total};
-})
-
-// Load cart from localStorage
-function loadCart() {
-    Cart.value = JSON.parse(localStorage.getItem("Cart")) || [];
-}
-
 
 // Load cart when page opens
 onMounted(() => {
     loadCart();
+    GetSummaryData();
 });
 </script>
 
