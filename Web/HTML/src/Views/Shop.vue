@@ -10,7 +10,7 @@
             <i class="material-icons">search</i><!--Needs to be programmed-->
         </section>
         <section class="filters">
-            <H3>Filters</H3>
+            <h3>Filters</h3>
             <div class="filterboxs">
                 <select id="Brand" v-model="Brand" v-on:change="getProducts">
                     <option value="">All Brands</option>
@@ -23,7 +23,7 @@
                     <option value="Citizen">Citizen</option> 
                     <option value="Carbon">Carbon</option>
                 </select><br/>
-                <Button v-on:click="reset"><i class="material-icons">refresh</i></Button>
+                <button v-on:click="reset"><i class="material-icons">refresh</i></button>
             </div> 
         </section>
         </div>

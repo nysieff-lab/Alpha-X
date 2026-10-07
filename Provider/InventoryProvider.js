@@ -3,26 +3,27 @@
 
 const db = require("../Domain/Database/Database.JS");
 
-const OrderQuantity = 5; // temp for testing REMOVE when intagrating to front end via API
-const ProductID = 1; // temp for testing REMOVE when intagrating to front end via API
-const RestockQuantity = 15; // temp for testing REMOVE when intagrating to front end via API
+//const OrderQuantity = 5; // temp for testing REMOVE when intagrating to front end via API
+//const ProductID = 1; // temp for testing REMOVE when intagrating to front end via API
 
 // further development needed to prevent negative stock
-//Turn into functions
+//for decrease maybe have it recive the cart and use a for loop
 
 //inventory Decrease
-Inventory = db.prepare(`
-    UPDATE Product
-    SET StockQuantity = StockQuantity - ?
-    WHERE ProductID = ?;
-`).run(OrderQuantity, ProductID);
+function DecreaseInventory() {
+    Inventory = db.prepare(`
+        UPDATE Product
+        SET StockQuantity = StockQuantity - ?
+        WHERE ProductID = ?;
+    `).run(OrderQuantity, ProductID);
+}
 
     //REMOVE
-Phone = db.prepare(`
+/*Phone = db.prepare(`
     SELECT * FROM Product
     WHERE ProductID = 1
 `).all();
-console.log(Phone) //REMOVE
+console.log(Phone) //REMOVE*/
 
 
 // Inventory Increase
@@ -35,10 +36,4 @@ function IncreaseInventory(RestockQuantity, ProductID) {
     return Inventory
 }
 
-IncreaseInventory(RestockQuantity, ProductID) //REMOVE
-    //REMOVE
-Phone = db.prepare(`
-    SELECT * FROM Product
-    WHERE ProductID = 1
-    `).all();
-console.log(Phone) //REMOVE
+module.exports = {IncreaseInventory};

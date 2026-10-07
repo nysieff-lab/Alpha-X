@@ -35,7 +35,47 @@ function GetProducts(Brand, Brand, CaseModel, CaseModel) {
     return Products
 }
 
-/*GetProducts(Brand, Brand, CaseModel, CaseModel) // REMOVE
-console.log(Products) //REMOVE */
 
-module.exports = GetProducts;
+function GetAdminProducts(Brand, Brand, Series, Series, PhoneModel, PhoneModel, CaseModel, CaseModel, Colour, Colour) {
+    AdminProducts = db.prepare(`
+        SELECT DISTINCT
+        p.PhoneID,
+        p.Brand,
+        p.Series,
+        p.[PhoneModel],
+        c.ProductID,
+        c.[CaseModel],
+        c.Colour,
+        c.StockQuantity
+        FROM Phone p
+        JOIN Product c
+        ON p.PhoneID = c.PhoneID
+        WHERE (? = '' OR p.Brand = ?) 
+        AND (? = '' OR p.Series = ?)
+        AND (? = '' OR p.PhoneModel = ?)
+        AND (? = '' OR c.CaseModel = ?)
+        AND (? = '' OR c.Colour = ?)
+        GROUP BY
+            p.PhoneID,
+            p.Brand,
+            p.Series,
+            p.PhoneModel,
+            c.CaseModel,
+            c.Colour
+        ORDER BY 
+            p.Brand;
+        `).all(Brand, Brand, Series, Series, PhoneModel, PhoneModel, CaseModel, CaseModel, Colour, Colour); 
+    return AdminProducts
+}
+/*GetProducts(Brand, Brand, CaseModel, CaseModel) // REMOVE
+console.log(Products) //REMOVE 
+Brand='Apple';
+Series='Galaxy';
+PhoneModel='';
+CaseModel='';
+Colour='';
+GetAdminProducts(Brand, Brand, Series, Series, PhoneModel, PhoneModel, CaseModel, CaseModel, Colour, Colour)
+console.log(Products);*/
+
+
+module.exports = {GetProducts,GetAdminProducts};
