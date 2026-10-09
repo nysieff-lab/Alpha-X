@@ -14,7 +14,7 @@ router.post("/", (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({
-            error: "Failed to retrieve products"
+            error: "Failed to Add products"
         });
     }
 });

@@ -9,7 +9,8 @@
             </div>
             
             <div class="cart-card" v-for="CartItem in Cart" :key="CartItem.ProductID"> 
-                <img src="../Assets/Images/Carbon_Series_Grid.png"> <!--FOr design purposes-->
+                <img v-if="CartItem.Image" :src="CartItem.Image" >
+                <img v-else src="../Assets/Images/No Image Available.png" :alt="CartItem.CaseModel">
                 <h5>{{CartItem.Brand}} {{ CartItem.Series }} {{ CartItem.PhoneModel }} {{ CartItem.CaseModel }} {{ CartItem.Colour }}</h5> 
                 <h5>Price: R{{ CartItem.Price }}</h5> 
                 <div>
@@ -51,6 +52,9 @@ import  {ref} from 'vue';
 import {onMounted} from 'vue';
 import { UpdateCart } from '@/Functions/Cart';
 import { loadCart } from '@/Functions/Cart';
+import { useToast } from "vue-toastification";
+
+const toast = useToast();
 
 const Cart = ref(
     JSON.parse(localStorage.getItem('Cart')) || []
@@ -89,6 +93,7 @@ function IncreaseQuantity(ProductID) {
 function RemoveItem(ProductID) {
     Cart.value = Cart.value.filter(CartItem => CartItem.ProductID !== ProductID);
     localStorage.setItem('Cart', JSON.stringify(Cart.value));
+    toast.success("Removed Item from Cart")
     UpdateCart();
     GetSummaryData();
 };

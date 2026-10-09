@@ -54,7 +54,10 @@
 
 <script setup>
 import router from '@/router';
-import { onMounted, onUnmounted, ref } from 'vue';
+import { onBeforeMount, onMounted, onUnmounted, ref } from 'vue';
+import { useToast } from "vue-toastification";
+
+const toast = useToast();
 
 const Filters = ref({ Brand: [], Series: [], PhoneModel: [], CaseModel: [], Colour: [] });
 
@@ -106,7 +109,7 @@ async function getAdminProducts() {
 
 async function AddStock(ProductID, RestockQuantity) {
     if (!RestockQuantity || RestockQuantity< 1) {
-        window.alert("Please enter a valid quantity");
+        toast.warning("Please enter a valid quantity");
         return;
     }
     try {
@@ -121,8 +124,10 @@ async function AddStock(ProductID, RestockQuantity) {
             })
         });
         const data = await response.json();
+        toast.success(RestockQuantity+" Items Added");
     } catch (error) {
           console.error("Could not add stock:", error);
+          toast.error("failed to add products");
     }
     getAdminProducts();
 }
@@ -136,10 +141,11 @@ function reset() {
     getAdminProducts()
 }
 
-onMounted(() =>{
+onBeforeMount(()=>{
     GetFilters();
     getAdminProducts();
-})
+});
+
 // Refine Needs Work
 /*onUnmounted(()=>{
     window.alert('test')//Remove

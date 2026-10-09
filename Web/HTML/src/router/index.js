@@ -1,4 +1,5 @@
 import About from '@/Views/About.vue'
+import Admin from '@/Views/Admin.vue'
 import Cart from '@/Views/Cart.vue'
 import Checkout from '@/Views/Checkout.vue'
 import Home from '@/Views/Home.vue'
@@ -44,10 +45,26 @@ const router = createRouter({
       path: '/Checkout',
       name: 'Checkout',
       component: Checkout
+    },
+    {
+      path: '/Admin',
+      name: 'Admin',
+      component: Admin,
+      meta: { Authentication: true }
     }
   ],
   scrollBehavior() {
         return {top:0}}
-})
+});
+
+//for admin login
+router.beforeEach((to,from,next)=>{
+  const LoggedIn = sessionStorage.getItem("LoggedIn");
+  if (to.meta.Authentication && LoggedIn !== "true") {
+        next("/Login");
+    } else {
+        next();
+    }
+});
 
 export default router

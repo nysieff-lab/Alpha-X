@@ -2,7 +2,8 @@
     <section>
         <div class="product-container">
             <div class="product-image">
-                <img src="../Assets/Images/Carbon_Series_Grid.png" alt="phone case"> <!--TEMPORY IMAGE WHILE STILL IN DEVELOPMENT. Must get from DB {{ Item[0]?.Image }}-->
+                    <img v-if="Item[0]?.Image" :src="Item[0]?.Image" >
+                    <img v-else src="../Assets/Images/No Image Available.png" :alt="Item[0]?.PhoneModel"> 
             </div>
 
             <div class="product-details">
@@ -19,7 +20,7 @@
                     <button  class="btn" v-on:click="AddtoCart(SelectedColour)">Add to Cart</button>
                 </div>
                 <div class="description">
-                        {{ productdescription }}<p>NB. This description is for testing purposes and should be removed. Some products have a tempory description.</p>
+                        {{ productdescription }}
                 </div>
             </div>
             

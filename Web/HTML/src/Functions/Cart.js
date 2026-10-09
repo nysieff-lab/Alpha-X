@@ -1,5 +1,8 @@
 import { ref } from 'vue';
 import { computed } from "vue";
+import { useToast } from "vue-toastification";
+
+const toast = useToast();
 
 //Loads the Cart
 const Cart = ref(
@@ -40,6 +43,10 @@ async function getCartItem(ProductID) {
 
 //Adds an item to the Cart
 export async function AddtoCart(ProductID) {
+    if (!ProductID) {
+        toast.info("Please select a Colour.");
+         return
+    }
     const CartItemResponse = await getCartItem(ProductID);
     if (!CartItemResponse) {
         return;
@@ -56,15 +63,17 @@ export async function AddtoCart(ProductID) {
     
     if (ExistingItem) {
         if (ExistingItem.Quantity >= CartItem.StockQuantity) {
-            window.alert("Max Stock Reached. There are only "+CartItem.StockQuantity+" Available");
+            toast.warning("Max Stock Reached. There are only "+CartItem.StockQuantity+" Available");
             return;
         }
         ExistingItem.Quantity++;
+        toast.success(CartItem.Brand+" "+CartItem.Series+" "+CartItem.PhoneModel+" "+CartItem.CaseModel+" "+CartItem.Colour+" Added To Cart")
     } else {
         Cart.push({
         ...CartItem, 
         Quantity: 1
         });
+        toast.success(CartItem.Brand+" "+CartItem.Series+" "+CartItem.PhoneModel+" "+CartItem.CaseModel+" "+CartItem.Colour+" Added To Cart")
     }
     
     localStorage.setItem("Cart", JSON.stringify(Cart));

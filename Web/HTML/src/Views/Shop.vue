@@ -7,7 +7,7 @@
        <div class="side">
         <section class="search">
             <input type="search">
-            <i class="material-icons">search</i><!--Needs to be programmed-->
+            <button><i class="material-icons">search</i></button><!--Needs to be programmed-->
         </section>
         <section class="filters">
             <h3>Filters</h3>
@@ -34,7 +34,8 @@
                 <div class="product-card-shop" v-for="product in Products" :key="product.PhoneID"  >
                     <RouterLink :to="`/item/${product.Brand}/${product.Series}/${product.PhoneModel}/${product.CaseModel}/${product.PhoneID}/${product.ProductID}`">
                     <div class="product-image"> 
-                        <img :src="product.Image" alt="Tactical Carbon Case"> 
+                            <img v-if="product.Image" :src="product.Image" >
+                            <img v-else src="../Assets/Images/No Image Available.png" :alt="product.PhoneModel"> 
                         <div class="product-info"> 
                             <h3>{{ product.Brand}} {{product.Series}} {{product.PhoneModel}} {{product.CaseModel}}</h3>
                             <p>R{{ product.Price }}</p> 
