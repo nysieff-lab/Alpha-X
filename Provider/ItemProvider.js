@@ -22,10 +22,10 @@ function GetItem(PhoneModel,CaseModel) {
         FROM Phone a
         JOIN Product c
         ON a.PhoneID = c.PhoneID
-        WHERE a.PhoneModel = ? AND c.CaseModel = ?;
+        WHERE c.StockQuantity > 0 AND a.PhoneModel = ? AND c.CaseModel = ?;
         `).all(PhoneModel,CaseModel);
     return Item
-}
+};
 
 function GetCartItem(ProductID) {
     CartItem = db.prepare(`
@@ -45,5 +45,6 @@ function GetCartItem(ProductID) {
         WHERE c.ProductID = ?
         `).all(ProductID);
     return CartItem
-}
+};
+
 module.exports = {GetItem, GetCartItem}

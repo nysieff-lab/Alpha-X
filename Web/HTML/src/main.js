@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
-
+import { createVuePrintIt } from 'vue-print-it'
 import Toast from 'vue-toastification'
 import 'vue-toastification/dist/index.css'
 
@@ -21,6 +21,12 @@ const options = {
   icon: true,
   rtl: false
 }
+app.use(createVuePrintIt({
+  windowTitle: 'Print Document',
+  preserveStyles: true,
+  autoClose: true,
+  timeout: 1000
+}))
 app.use(Toast, options)
 app.use(router)
 

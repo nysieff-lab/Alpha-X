@@ -25,6 +25,7 @@ const toast = useToast();
 const UserName = ref('');
 const Password = ref('');
 
+//Uses AJAX call to fetch the Logins with JSON
 async function Login() {
     if (!UserName.value || !Password.value ) {
         toast.error("Please enter Username and Password");

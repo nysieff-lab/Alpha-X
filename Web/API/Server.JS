@@ -10,6 +10,7 @@ const CheckoutDataRouter = require('./Routes/GetCheckoutDataAPI.js');
 const FiltersRouter = require('./Routes/GetFiltersAPI.js');
 const AdminProductsRouter = require('./Routes/GetAdminProductsAPI.js');
 const AddStockRouter = require('./Routes/AddStockAPI.js');
+const PlaceOrderRouter = require('./Routes/PlaceOrderAPI.js');
 
 app.use(cors({
     origin: "http://localhost:5173"
@@ -27,6 +28,7 @@ app.use('/api/checkout', CheckoutDataRouter);
 app.use('/api/filters', FiltersRouter);
 app.use('/api/adminproducts', AdminProductsRouter);
 app.use('/api/addstock', AddStockRouter);
+app.use('/api/placeorder', PlaceOrderRouter);
 
 app.listen(3000, () => {
     console.log('server is running on http://localhost:3000');

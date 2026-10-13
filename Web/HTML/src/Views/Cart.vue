@@ -83,7 +83,7 @@ function IncreaseQuantity(ProductID) {
         CartItem.Quantity++;
         localStorage.setItem('Cart', JSON.stringify(Cart.value));
     } else {
-        window.alert("Max Stock Reached. There are only "+CartItem.StockQuantity+" Available");
+        toast.warning("Max Stock Reached. There are only "+CartItem.StockQuantity+" Available");
     }
     UpdateCart();
     GetSummaryData();

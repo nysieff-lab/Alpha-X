@@ -3,6 +3,7 @@ import Admin from '@/Views/Admin.vue'
 import Cart from '@/Views/Cart.vue'
 import Checkout from '@/Views/Checkout.vue'
 import Home from '@/Views/Home.vue'
+import Invoice from '@/Views/Invoice.vue'
 import Item from '@/Views/Item.vue'
 import Login from '@/Views/Login.vue'
 import Shop from '@/Views/Shop.vue'
@@ -51,6 +52,11 @@ const router = createRouter({
       name: 'Admin',
       component: Admin,
       meta: { Authentication: true }
+    },
+    {
+      path: '/Invoice',
+      name: 'Invoice',
+      component: Invoice
     }
   ],
   scrollBehavior() {

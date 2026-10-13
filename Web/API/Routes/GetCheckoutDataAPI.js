@@ -1,5 +1,5 @@
 const express = require('express');
-const SummaryData = require('../../../Provider/CheckoutProvider.js');
+const {SummaryData} = require('../../../Provider/CheckoutProvider.js');
 const router = express.Router();
 
 router.post("/", (req, res) => {

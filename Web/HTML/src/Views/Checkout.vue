@@ -1,5 +1,5 @@
 <template>
-    <form action="/action_page.php"> 
+    <form @submit.prevent="PlaceOrder"> 
     <div class="checkout-container">
         <section class="details">
             <div class="contact">
@@ -13,7 +13,10 @@
             </div>
             <div class="delivery">
                 <h2>Delivery</h2>
-                <input type="text" placeholder="Country" v-model="Country" required> 
+                <select id="Country" name="Country" v-model="Country" required>
+                    <option disabled value="">Country</option> 
+                    <option value="South Africa">South Africa</option>
+                </select> 
                 <input type="text" placeholder="Address" v-model="Address" required> 
                 <div class="country-row">
                     <input type="text" id="City" placeholder="City" v-model="City" required>
@@ -40,7 +43,7 @@
                 <div class="products-card" v-for="CartItem in Cart" :key="CartItem.ProductID">
                     <h4 class="quantity">{{ CartItem.Quantity }}</h4>
                     <h5>{{CartItem.Brand}} {{CartItem.Series}} {{CartItem.PhoneModel}} {{CartItem.CaseModel}} {{ CartItem.Colour }}</h5>
-                    <h5>Total: R{{ CalculateTotal(CartItem) }}</h5> <!--Calculated on Front end For simplicity. Might Change!!!-->
+                    <h5>Total: R{{ CalculateTotal(CartItem) }}</h5> <!--Calculated on Front end For simplicity. Data for invoice Calculated on Backend.-->
                 </div>
             </div>
             <div class="summarry">
@@ -52,7 +55,7 @@
                 <h3>Total: R{{ SummaryData.Total }}</h3> 
                 <i>Total Price includes VAT</i>
             </div>
-            <button class="btn" v-on:click="test()">Place Order</button>
+            <button class="btn" type="submit">Place Order</button>
         </section>
     </div>
     </form>
@@ -64,6 +67,7 @@ import { onMounted, ref } from 'vue';
 import { CalculateTotal, CartQuantity } from '@/Functions/Cart';
 import { loadCart } from '@/Functions/Cart';
 import router from '../router/index';
+import { useToast } from 'vue-toastification';
 
 //Tidy up
 const Email = ref('');
@@ -81,6 +85,8 @@ const Cart = ref(
 );
 const SummaryData = ref({});
 
+const toast = useToast();
+
 //uses AJAX call to fetch data with JSON
 async function GetSummaryData() {
      try {
@@ -97,9 +103,68 @@ async function GetSummaryData() {
      }
 }
 
-//temporary Remove/ modify ect
-function test() {
+async function PlaceOrder() {
+    //remove
     console.log(Email.value+" "+FName.value+" "+Surname.value+" "+PhoneNumber.value); 
+    console.log(Country.value+" "+Address.value+" "+City.value+" "+Province.value+" "+PostalCode.value);
+
+   const Cart = ref(JSON.parse(localStorage.getItem('Cart')) || []); //refreshes cart for check
+    if (Cart.value.length === 0) {
+        toast.error('cart is empty.');
+        loadCart();
+        router.push({ path: '/Shop' })
+        return
+    }
+    try {
+        const response = await fetch("http://Localhost:3000/api/placeorder", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            Email: Email.value,
+            Name: FName.value,
+            Surname: Surname.value,
+            PhoneNumber: PhoneNumber.value,
+            Country: Country.value,
+            Address: Address.value,
+            City: City.value,
+            Province: Province.value,
+            PostalCode: PostalCode.value,
+            Cart: Cart.value
+            })
+        });
+        const result = await response.json();
+        toast.success(result.message)
+
+        router.push({ path: '/Invoice'});
+        const InvoiceRoute = router.resolve({ path: '/Cart'});
+        window.open(InvoiceRoute.href,'_blank');
+
+        sessionStorage.setItem('Invoice', JSON.stringify(result.Invoice));
+
+        console.log('Invoice');// remove
+        console.log(result.Invoice); //remove
+        console.log(result.Invoice.AddressInfo.Address); //remove
+        
+
+        localStorage.removeItem('Cart');
+        Cart.value = [];
+        loadCart();
+        Email.value = ''; 
+        FName.value = ''; 
+        Surname.value = ''; 
+        PhoneNumber.value = ''; 
+        Country.value  = '';
+        Address.value = ''; 
+        City.value = '';
+        Province.value = '';
+        PostalCode.value = '';
+    } catch (error) {
+        console.error('Error placing order:', error);
+        toast.error('Could not connect to the server.');
+    }
+
 }
 
 // Load Checkout when page opens
