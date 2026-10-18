@@ -36,8 +36,7 @@
         </section>
     </div>
 
-    <div v-else class="cart-container">
-        <section></section> <!--REMOVE-->
+    <div v-else class="empty-cart-container">
         <section>
             <h1>Shopping Cart</h1>
             <p>Your Cart is Currently empty.</p>
@@ -123,5 +122,5 @@ onMounted(() => {
 
 
 <style scoped>
-
+@import '../Assets/Cart.css';
 </style>

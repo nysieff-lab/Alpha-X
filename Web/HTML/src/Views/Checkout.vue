@@ -180,5 +180,5 @@ onMounted(() => {
 </script>
 
 <style scoped>
-
+@import '../Assets/Checkout.css';
 </style>

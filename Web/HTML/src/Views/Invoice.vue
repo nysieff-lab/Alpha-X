@@ -79,167 +79,22 @@
 </template>
 
 <script setup>
-import router from '@/router';
-import { onBeforeMount, ref } from 'vue';
+import router from '../router/index';
+import { onBeforeMount, onMounted, ref } from 'vue';
 
-const Invoice = ref({Items: []});
+const Invoice = ref({OrderDetails: {}, CustomerInfo: {}, AddressInfo: {}, OrderItems: [] });
 
-onBeforeMount(() => {
-    if (!sessionStorage.getItem('Invoice')) {
-        router.push('/Shop')
+onMounted(() => {
+    const storedinvoice = sessionStorage.getItem('Invoice')
+    if (!storedinvoice) {
+        router.push({ path: '/Shop' });
     } else {
         const getInvoice = sessionStorage.getItem('Invoice');
         Invoice.value = JSON.parse(getInvoice);
-    }
+    };
 });
 </script>
 
 <style scoped>
-    .invoice-container {
-        width: 90%;
-        max-width: 65em;
-        margin: 3em auto;
-        padding: 1.5em;
-        box-sizing: border-box;
-        background: var(--light);
-        color: var(--dark);
-        border:solid;
-        border-color: var(--dark);
-        border-width: 0.1em;
-        border-radius: 1em;
-        font-family: Arial, sans-serif;
-    }
-    .invoice-header {
-        margin-top: -3em;
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 1em;
-        padding-bottom: 1em;
-        margin-bottom: 2em;
-        border-bottom: solid;
-        border-bottom-width: 0.2em;
-        border-bottom-color: var(--primary) ;
-    }
-    .invoice-logo {
-        display: flex;
-        align-items: center;
-        gap: 1em;
-    }
-    .invoice-logo img {
-        width: 5em;
-        height: 5em;
-        object-fit: contain;
-    }
-    .invoice-logo h1 {
-        font-size: 24px;
-        margin: 0;
-    }
-    .invoice-number {
-        text-align: right;
-    }
-    .invoice-number h2 {
-        color: var(--primary);
-        margin-top: 0;
-    }
-    .invoice-details {
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 1em;
-        margin-bottom: 2em;
-    }
-    .invoice-details h3 {
-        color: var(--primary);
-        margin-bottom: 0.5em;
-    }
-    .invoice-details p {
-        margin: 0.4em 0;
-    }
-    .invoice-products {
-        width: 100%;
-        margin-bottom: 3em;
-    }
-    .product-heading, .product-row {
-        display: grid;
-        grid-template-columns: 3fr 1fr 1fr 0.5fr 1fr;
-        gap: 1em;
-        align-items: center;
-        padding: 1em;
-        box-sizing: border-box;
-    }
-    .product-heading {
-        background: var(--dark);
-        color: var(--light);
-        font-weight: bold;
-        border-radius: 0.4em;
-    }
-    .product-row {
-        border-bottom:solid;
-        border-bottom-width: 0.1em;
-        border-bottom-color: var(--dark);
-        overflow-wrap: anywhere;
-    }
-    .product-heading p:last-child, .product-row p:last-child {
-        text-align: right;
-    }
-    .invoice-summary {
-        width: 100%;
-        max-width: 20em;
-        margin-left: auto;
-    }
-    .summary-row {
-        display: flex;
-        justify-content: space-between;
-        gap: 2em;
-        padding: 0.5em 0em;
-    }
-    .invoice-total {
-        border-top: solid;
-        border-top-width: 0.1em;
-        border-top-color: var(--primary) ;
-        margin-top: 0.5em;
-        padding-top: 0.5em;
-        font-size: 20px;
-        font-weight: bold;
-        color: var(--primary);
-    }
-    .invoice-footer {
-        text-align: center;
-        margin-top: 3em;
-        padding-top: 2em;
-        border-top: solid;
-        border-top-width: 0.1em;
-        border-top-color: var(--dark) ;
-    }
-    .invoice-footer h3 {
-        margin-bottom: 2em;
-    }
-    .buttons {
-        display: flex;
-        gap: 2em;
-    }
-
-    @media print {
-        .invoice-container {
-            visibility: visible;
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
-        }
-        .invoice-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            display: block;
-            width: 100%;
-            max-width: none;
-            margin: 0;
-            padding: 0;
-            border: none;
-        }
-
-        @page {
-            margin: 2mm;
-        }
-    }
+@import '../Assets/Invoice.css';
 </style>

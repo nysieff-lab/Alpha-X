@@ -5,10 +5,6 @@
 
     <div class="shop-container">
        <div class="side">
-        <section class="search">
-            <input type="search">
-            <button><i class="material-icons">search</i></button><!--Needs to be programmed-->
-        </section>
         <section class="filters">
             <h3>Filters</h3>
             <div class="filterboxs">
@@ -93,5 +89,5 @@ onMounted(() => {
 </script>
 
 <style scoped>
-    
+    @import '../Assets/Shop.css';
 </style>

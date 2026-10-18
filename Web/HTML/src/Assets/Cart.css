@@ -1,0 +1,130 @@
+.cart-container {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.cart-items {
+    flex: 70%;
+    padding-top: 1.5em;
+}
+
+.cart-summary {
+    flex: 30%;
+    padding-top: 1.5em;
+}
+
+.cart-header {
+    background: rgba(0,0,0,.5);
+    backdrop-filter: blur(.5em);
+    margin: 0em;
+    margin-top: 6em;
+    border: solid;
+    border-color: var(--primary); 
+    border-radius: 1em;
+    border-width: 0.1em;
+    padding: 0.5em;
+    padding-left: 1em;
+    padding-right: 1em;
+    display: flex;
+    justify-content: space-between;
+}
+
+.cart-card {
+    background: rgba(0,0,0,.5);
+    backdrop-filter: blur(.5em);
+
+    margin-top: 0.5em;
+    border: solid;
+    border-color: var(--primary); 
+    border-radius: 1em;
+    border-width: 0.1em;
+    padding: 1em;
+    padding-right: 2em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.cart-card div{
+    display: flex;
+    align-items: center;
+}
+.cart-card span{
+    display: flex;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+
+.cart-card button{
+    border: none;
+    background: none;
+}
+
+.cart-card i{
+    color: var(--light);
+}
+
+.cart-card i:hover{
+    color: var(--grey);
+}
+
+.cart-card img{
+    border: solid;
+    border-color: var(--grey);
+    border-radius: 0.1em; 
+    border-width: 0.1em;
+    width: 4em;
+}
+
+.summary {
+    background: rgba(0,0,0,.5);
+    backdrop-filter: blur(.5em);
+
+    margin: 0em;
+    margin-top: 6em;
+    border: solid;
+    border-color: var(--primary); 
+    border-radius: 1em;
+    border-width: 0.1em;
+    padding: 1em;
+}
+.summary h3 {
+    text-align: center;
+}
+.summary hr {
+    border: none;
+    background-color: var(--primary);
+    height: 0.1em;
+}
+
+.total {
+    font-weight: bold;
+}
+
+.btn{
+    margin-top: 0.25em;
+    width: 100%;
+    margin-bottom: 2em;
+    border-radius: 3em;
+    font-size: 1em;
+}
+
+.empty-cart-container {
+    margin-top: 8em;
+}
+.empty-cart-container .btn {
+    margin-top: 0.5em;
+    width: auto;
+}
+
+/*-------------------Media Queries-------------------*/
+@media screen and (max-width: 65em) {
+    .cart-container {   
+        flex-direction: column;
+    }
+    .summary {
+        margin-top: -2em;
+    }
+    .cart-header {
+        margin-top: 6.5em;
+    }
+}

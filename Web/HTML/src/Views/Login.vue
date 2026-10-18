@@ -63,7 +63,5 @@ onBeforeMount(()=>{
 
 
 <style scoped>
-.login-logo {
-    display: none;
-}
+@import '../Assets/Login.css';
 </style>

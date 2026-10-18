@@ -1,0 +1,23 @@
+.login-container {
+    margin-top: 7em;
+    text-align: center;
+}
+
+.login-logo {
+    width: 8em;
+    margin: auto;
+    margin-bottom: 0.1em;
+}
+.login-container h3 {
+    margin-bottom: 0.3em;
+}
+.login-boxes {
+    border: none;
+    border-radius: 0.5em;
+    padding: 0.5em;
+    height: 2em;
+    width: 15em;
+    font-weight: 1000;
+    font-size: large;
+    margin-bottom: 0.5em;
+}

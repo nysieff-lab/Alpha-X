@@ -11,7 +11,7 @@
             </ul>
             
             <div class="icons">        
-                <a href="#"><i class="material-icons">search</i></a>  
+                <RouterLink to="/Invoice"><i class="material-icons">receipt_long</i></RouterLink>  
                 <div class="cart-container">
                     <RouterLink to="/Cart"><i class="material-icons">shopping_cart</i></RouterLink>
                         <!--number of items in cart here-->

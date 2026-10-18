@@ -80,5 +80,5 @@ onMounted(() => {
 </script>
 
 <style scoped>
-
+@import '../Assets/Item.css';
 </style>

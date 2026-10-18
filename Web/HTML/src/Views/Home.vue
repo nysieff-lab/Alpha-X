@@ -1,6 +1,6 @@
 <template>
     <section class="welcome">
-    <div>
+    <div class="overlay">
         <img src="../Assets/Images/Background.jpg" alt="Background">
     </div>
     <div class="welcome-content">
