@@ -3,9 +3,6 @@
 
 const db = require("../Domain/Database/Database.JS");
 
-//const OrderQuantity = 5; // temp for testing REMOVE when intagrating to front end via API
-//const ProductID = 1; // temp for testing REMOVE when intagrating to front end via API
-
 //inventory Decrease
 function DecreaseInventory(Cart) {
     for (let index = 0; index < Cart.length; index++) {
@@ -18,14 +15,6 @@ function DecreaseInventory(Cart) {
         `).run(OrdersItemQuantity, ProductID);
     };  
 };
-
-    //REMOVE
-/*Phone = db.prepare(`
-    SELECT * FROM Product
-    WHERE ProductID = 1
-`).all();
-console.log(Phone) //REMOVE*/
-
 
 // Inventory Increase
 function IncreaseInventory(RestockQuantity, ProductID) {

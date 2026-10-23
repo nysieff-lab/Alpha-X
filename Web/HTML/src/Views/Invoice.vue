@@ -80,7 +80,7 @@
 
 <script setup>
 import router from '../router/index';
-import { onBeforeMount, onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
 const Invoice = ref({OrderDetails: {}, CustomerInfo: {}, AddressInfo: {}, OrderItems: [] });
 

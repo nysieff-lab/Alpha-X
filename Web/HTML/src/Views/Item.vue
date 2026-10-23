@@ -56,7 +56,6 @@ async function getItem() {
             })
         });
         Item.value = await response.json();
-        console.log(Item.value)//Remove
 
     } catch (error) {
         console.error("could not get Item:", error);

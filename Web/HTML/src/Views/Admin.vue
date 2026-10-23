@@ -53,8 +53,7 @@
 </template>
 
 <script setup>
-import router from '@/router';
-import { onBeforeMount, onMounted, onUnmounted, ref } from 'vue';
+import { onBeforeMount,  ref } from 'vue';
 import { useToast } from "vue-toastification";
 
 const toast = useToast();
@@ -145,12 +144,6 @@ onBeforeMount(()=>{
     GetFilters();
     getAdminProducts();
 });
-
-// Refine Needs Work
-/*onUnmounted(()=>{
-    window.alert('test')//Remove
-    router.removeRoute('/Admin')
-});*/
 
 </script>
 

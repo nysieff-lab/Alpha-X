@@ -2,9 +2,6 @@
 
 const db = require("../Domain/Database/Database.JS");
 
-    /*PhoneModel = 'S20'; // temp for testing
-    CaseModel = 'Classic'; // temp for testing remove when intagrating to front end via API*/
-
 function GetItem(PhoneModel,CaseModel) {
     Item = db.prepare(`
         SELECT

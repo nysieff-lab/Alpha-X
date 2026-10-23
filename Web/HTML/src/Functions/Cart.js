@@ -22,8 +22,6 @@ export function UpdateCart() {
 //Gets the item from DB for Cart
 //Using AJAX to fetch each cart item with JSON, Then passing it to localstorage
 async function getCartItem(ProductID) {
-    //const ProductID = SelectedColour.value
-    console.log(ProductID); //remove  
     try {
         const response = await fetch("http://Localhost:3000/api/cartitem",{
              method: "POST",
@@ -77,7 +75,6 @@ export async function AddtoCart(ProductID) {
     }
     
     localStorage.setItem("Cart", JSON.stringify(Cart));
-    console.log("Cart:", Cart);//remove
     UpdateCart();
 }
 

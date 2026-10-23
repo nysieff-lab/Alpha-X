@@ -2,9 +2,6 @@
 
 const db = require("../Domain/Database/Database.JS");
 
-    //CaseModel = ''; // temp for testing remove when intagrating to front end via API
-   // Brand = 'Apple'; // temp for testing remove when intagrating to front end via API.
-
 function GetProducts(Brand, Brand, CaseModel, CaseModel) {
     Products = db.prepare(`
         SELECT DISTINCT
@@ -34,7 +31,6 @@ function GetProducts(Brand, Brand, CaseModel, CaseModel) {
         `).all(Brand, Brand, CaseModel, CaseModel); 
     return Products
 }
-
 
 function GetAdminProducts(Brand, Brand, Series, Series, PhoneModel, PhoneModel, CaseModel, CaseModel, Colour, Colour) {
     AdminProducts = db.prepare(`
@@ -67,15 +63,5 @@ function GetAdminProducts(Brand, Brand, Series, Series, PhoneModel, PhoneModel, 
         `).all(Brand, Brand, Series, Series, PhoneModel, PhoneModel, CaseModel, CaseModel, Colour, Colour); 
     return AdminProducts
 }
-/*GetProducts(Brand, Brand, CaseModel, CaseModel) // REMOVE
-console.log(Products) //REMOVE 
-Brand='Apple';
-Series='Galaxy';
-PhoneModel='';
-CaseModel='';
-Colour='';
-GetAdminProducts(Brand, Brand, Series, Series, PhoneModel, PhoneModel, CaseModel, CaseModel, Colour, Colour)
-console.log(Products);*/
-
 
 module.exports = {GetProducts,GetAdminProducts};

@@ -104,9 +104,6 @@ async function GetSummaryData() {
 }
 
 async function PlaceOrder() {
-    //remove
-    console.log(Email.value+" "+FName.value+" "+Surname.value+" "+PhoneNumber.value); 
-    console.log(Country.value+" "+Address.value+" "+City.value+" "+Province.value+" "+PostalCode.value);
 
    const Cart = ref(JSON.parse(localStorage.getItem('Cart')) || []); //refreshes cart for check
     if (Cart.value.length === 0) {
@@ -142,11 +139,6 @@ async function PlaceOrder() {
         window.open(InvoiceRoute.href,'_blank');
 
         sessionStorage.setItem('Invoice', JSON.stringify(result.Invoice));
-
-        console.log('Invoice');// remove
-        console.log(result.Invoice); //remove
-        console.log(result.Invoice.AddressInfo.Address); //remove
-        
 
         localStorage.removeItem('Cart');
         Cart.value = [];

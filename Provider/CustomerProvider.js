@@ -3,18 +3,6 @@
 //!!!!!!!!!! Must receive email as lower case and phone number in the format of xxx xxx xxxx
 const db = require("../Domain/Database/Database.JS");
 
-//FOR TESTING REMOVE
-/*Name = 'Harry';
-Surname = 'Van de merve';
-Email = 'harRRRyvdm@gmail.com';
-PhoneNumber = '987 654 3210';
-
-Address = '21 Green Road Sundown';
-City = 'Johannesburg';
-Province = 'Gauteng'; 
-PostalCode = '8790'; 
-Country = 'South Africa'*/
-
 //writes customer data to db
 function Customer(Name, Surname, Email, PhoneNumber, Address, City, Province, PostalCode, Country) { 
 
@@ -69,14 +57,5 @@ function Customer(Name, Surname, Email, PhoneNumber, Address, City, Province, Po
     };
     return {CustomerID, AddressID}
 }
-
-
-
-//FOR TESTING REMOVE
-/*Customer(Name, Surname, Email, PhoneNumber, Address, City, Province, PostalCode, Country)
-test = db.prepare(`SELECT * FROM Customer`).all();
-console.log(test);
-test = db.prepare(`SELECT * FROM Address`).all();
-console.log(test);*/
 
 module.exports = {Customer};
