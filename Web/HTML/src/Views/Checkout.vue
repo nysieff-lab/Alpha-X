@@ -53,7 +53,7 @@
                 <p>VAT: R{{ SummaryData.VAT }}</p><br> 
                 <hr>
                 <h3>Total: R{{ SummaryData.Total }}</h3> 
-                <i>Total Price includes VAT</i>
+                <i>Total Price includes VAT of R{{ SummaryData.VAT }}</i>
             </div>
             <button class="btn" type="submit">Place Order</button>
         </section>
@@ -68,6 +68,7 @@ import { CalculateTotal, CartQuantity } from '@/Functions/Cart';
 import { loadCart } from '@/Functions/Cart';
 import router from '../router/index';
 import { useToast } from 'vue-toastification';
+import API from "../Services/API";
 
 //Tidy up
 const Email = ref('');
@@ -90,14 +91,10 @@ const toast = useToast();
 //uses AJAX call to fetch data with JSON
 async function GetSummaryData() {
      try {
-        const response = await fetch("http://localhost:3000/api/checkout", {
-            method: "POST",
-            headers: {
-                "Content-Type":"application/json"
-            },
-            body: JSON.stringify(Cart.value)
-        });
-        SummaryData.value = await response.json();
+        const response = await API.post("/api/checkout", //API.post is the same as fetch when using Axios
+            Cart.value
+        );
+        SummaryData.value = await response.data;
      } catch (error) {
         console.error("Error getting Data:", error);
      }
@@ -113,12 +110,8 @@ async function PlaceOrder() {
         return
     }
     try {
-        const response = await fetch("http://Localhost:3000/api/placeorder", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
+        const response = await API.post("/api/placeorder",  //API.post is the same as fetch when using Axios
+        {
             Email: Email.value,
             Name: FName.value,
             Surname: Surname.value,
@@ -129,14 +122,11 @@ async function PlaceOrder() {
             Province: Province.value,
             PostalCode: PostalCode.value,
             Cart: Cart.value
-            })
         });
-        const result = await response.json();
+        const result = await response.data;
         toast.success(result.message)
 
         router.push({ path: '/Invoice'});
-        const InvoiceRoute = router.resolve({ path: '/Cart'});
-        window.open(InvoiceRoute.href,'_blank');
 
         sessionStorage.setItem('Invoice', JSON.stringify(result.Invoice));
 

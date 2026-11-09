@@ -144,6 +144,13 @@ footer img {
     background:var(--secondary);
 }
 
+main {
+  min-height: 75vh;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
 /*-------------------Media Queries-------------------*/
 @media(max-width:56.25em){
     header {
@@ -161,4 +168,10 @@ footer img {
     .logo img {
         display: none;
     }
+}
+
+@media screen and (min-height: 110vh){
+  main {
+    min-height: 90vh;
+  }
 }

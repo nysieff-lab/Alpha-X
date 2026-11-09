@@ -63,6 +63,7 @@
                     <p>Total:</p>
                     <p>R{{ Invoice.OrderDetails.TotalAmount}}</p>
                 </div>
+                <i>Total Price includes VAT of R{{ Invoice.OrderDetails.VAT }}</i>
             </div>
             <div class="invoice-footer">
                 <h4>Thank you for shopping with Alpha X.</h4>

@@ -19,6 +19,7 @@
 import { onBeforeMount, ref } from "vue";
 import router from '../router/index'
 import { useToast } from "vue-toastification";
+import API from "@/Services/API";
 
 const toast = useToast();
 
@@ -31,17 +32,12 @@ async function Login() {
         toast.error("Please enter Username and Password");
         return
     }
-    const response = await fetch("http://localhost:3000/api/login", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
+    const response = await API.post("/api/login",  //API.post is the same as fetch when using Axios
+        {
             UserName: UserName.value,
             Password: Password.value
-        })
-    });
-const loginData = await response.json();
+        });
+const loginData = await response.data;
 
     if (loginData.success) {
         sessionStorage.setItem("LoggedIn", "true");

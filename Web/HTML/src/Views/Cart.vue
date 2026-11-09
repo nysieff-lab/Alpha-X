@@ -28,9 +28,12 @@
                 <h3>Cart Summary</h3><br/><hr/><br/>
                 <p>Items in cart: {{ CartQuantity }}</p><br/> 
                 <p>SubTotal: R{{ SummaryData.SubTotal }}</p>
+                <p>VAT: R{{ SummaryData.VAT }}</p>
                 <p>Delivery: R{{SummaryData.Delivery}}</p><br/>
                 <hr/><br/>
                 <p class="total">Total: R{{ SummaryData.Total }}</p>
+                <i>Total includes VAT of R{{ SummaryData.VAT }}</i>
+                
             </div>
             <RouterLink to="/Checkout"><button class="btn">Check Out</button></RouterLink>
         </section>
@@ -52,6 +55,7 @@ import {onMounted} from 'vue';
 import { UpdateCart } from '@/Functions/Cart';
 import { loadCart } from '@/Functions/Cart';
 import { useToast } from "vue-toastification";
+import API from "../Services/API";
 
 const toast = useToast();
 
@@ -100,14 +104,10 @@ function RemoveItem(ProductID) {
 //uses AJAX call to fetch data with JSON
 async function GetSummaryData() {
      try {
-        const response = await fetch("http://localhost:3000/api/checkout", {
-            method: "POST",
-            headers: {
-                "Content-Type":"application/json"
-            },
-            body: JSON.stringify(Cart.value)
-        });
-        SummaryData.value = await response.json();
+        const response = await API.post("/api/checkout", //API.post is the same as fetch when using Axios
+            Cart.value
+        );
+        SummaryData.value = await response.data;
      } catch (error) {
         console.error("Error getting Data:", error);
      }

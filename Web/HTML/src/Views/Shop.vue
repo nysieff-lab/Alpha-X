@@ -10,14 +10,11 @@
             <div class="filterboxs">
                 <select id="Brand" v-model="Brand" v-on:change="getProducts">
                     <option value="">All Brands</option>
-                    <option value="Apple">Apple</option>
-                    <option value="Samsung">Samsung</option>
+                    <option v-for="Item in Filters.Brand" :key="Item.Brand" :value="Item.Brand">{{ Item.Brand }}</option>
                 </select><br/>
                 <select id="CaseModel" v-model="CaseModel" v-on:change="getProducts">
                     <option value="">All Series</option>
-                    <option value="Classic">Classic</option> 
-                    <option value="Citizen">Citizen</option> 
-                    <option value="Carbon">Carbon</option>
+                    <option v-for="Item in Filters.CaseModel" :key="Item.CaseModel" :value="Item.CaseModel">{{ Item.CaseModel }}</option>
                 </select><br/>
                 <button v-on:click="reset"><i class="material-icons">refresh</i></button>
             </div> 
@@ -49,11 +46,25 @@
 
 import { ref } from 'vue';
 import { onMounted } from 'vue';
+import API from "../Services/API";
 
 const Brand = ref('');
 const CaseModel = ref('');
 const Products = ref([]);
+const Filters = ref({ Brand: [], CaseModel: []});
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+//used AJAX here to fetch Filters with JSON
+async function GetFilters() {
+    try {
+        const response = await API.post("/api/filters");
+        
+        Filters.value = response.data;
+    } catch (error) {
+        console.error("could not get Filters:", error);
+    }
+}
+
 
 //Uses AJAX call to fetch the products for the grid with JSON
 //Demonstrated with the sleep function
@@ -61,17 +72,13 @@ async function getProducts() {
     Products.value = ''
    await sleep(100);
     try {
-        const response = await fetch("http://Localhost:3000/api/products",{
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
+        const response = await API.post("/api/products", //API.post is the same as fetch when using Axios
+            {
                 Brand: Brand.value,
                 CaseModel: CaseModel.value
-            })
-        });
-        Products.value = await response.json();
+            }
+        );
+        Products.value = await response.data;
     } catch (error) {
         console.error("Error getting products:", error);
     }
@@ -84,6 +91,7 @@ function reset() {
 }
 
 onMounted(() => {
+    GetFilters();
     getProducts();
 }); 
 </script>

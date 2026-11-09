@@ -9,6 +9,7 @@
             <div class="product-details">
                 <h2> {{ Item[0]?.Brand }} {{ Item[0]?.Series }} {{ Item[0]?.PhoneModel }} {{ Item[0]?.CaseModel }}</h2>
                 <h3> Price: R{{ Item[0]?.Price }}<br/></h3>
+                <i>Price includes VAT (15%)</i><br>
                 <div> 
                     <label for="colour-select">Choose colour: </label>
                     <select id="colour-select" v-model="SelectedColour" v-on:change="showdescription">
@@ -33,6 +34,7 @@ import { ref } from 'vue';
 import { onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { AddtoCart } from '@/Functions/Cart';
+import API from '@/Services/API';
 
 const route = useRoute();
 const Item = ref([]);
@@ -45,17 +47,12 @@ async function getItem() {
     const PhoneModel = route.params.PhoneModel;
     const CaseModel = route.params.CaseModel;
     try {
-        const response = await fetch("http://Localhost:3000/api/item",{
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
+        const response = await API.post("/api/item", //API.post is the same as fetch when using Axios
+            {
                 PhoneModel: PhoneModel,
                 CaseModel: CaseModel
-            })
-        });
-        Item.value = await response.json();
+            });
+        Item.value = await response.data;
 
     } catch (error) {
         console.error("could not get Item:", error);

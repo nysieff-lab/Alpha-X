@@ -55,6 +55,7 @@
 <script setup>
 import { onBeforeMount,  ref } from 'vue';
 import { useToast } from "vue-toastification";
+import API from "../Services/API";
 
 const toast = useToast();
 
@@ -71,13 +72,9 @@ const AdminProducts = ref([]);
 //used AJAX here to fetch Filters with JSON
 async function GetFilters() {
     try {
-        const response = await fetch("http://Localhost:3000/api/filters",{
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        });
-        Filters.value = await response.json();
+        const response = await API.post("/api/filters"); //API.post is the same as fetch when using Axios
+        
+        Filters.value = response.data;
     } catch (error) {
         console.error("could not get Filters:", error);
     }
@@ -87,20 +84,15 @@ async function GetFilters() {
 async function getAdminProducts() {
     AdminProducts.value = ''
     try {
-        const response = await fetch("http://Localhost:3000/api/adminproducts",{
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
+        const response = await API.post("/api/adminproducts", //API.post is the same as fetch when using Axios
+            {
                 Brand: Brand.value,
                 Series: Series.value,
                 PhoneModel: PhoneModel.value,
                 CaseModel: CaseModel.value,
                 Colour: Colour.value
-            })
-        });
-        AdminProducts.value = await response.json();
+            });
+        AdminProducts.value = await response.data;
     } catch (error) {
         console.error("Error getting products:", error);
     }
@@ -112,17 +104,12 @@ async function AddStock(ProductID, RestockQuantity) {
         return;
     }
     try {
-        const response = await fetch("http://Localhost:3000/api/addstock",{
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
+        const response = await API.post("/api/addstock", //API.post is the same as fetch when using Axios
+            {
                 ProductID: ProductID,
                 RestockQuantity: RestockQuantity
-            })
-        });
-        const data = await response.json();
+            });
+        const data = await response.data;
         toast.success(RestockQuantity+" Items Added");
     } catch (error) {
           console.error("Could not add stock:", error);

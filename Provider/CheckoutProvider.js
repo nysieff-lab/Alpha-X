@@ -25,6 +25,7 @@ function SummaryData(Cart) {
     }
     const Total = SubTotal + Delivery;
     const VAT = 0.15 * Total;
+    SubTotal = SubTotal - VAT
 
     return {SubTotal, Delivery, Total, VAT}
 }
@@ -84,8 +85,9 @@ function InvoiceData(CustomerID, AddressID, OrdersID) {
         WHERE od.OrdersID = ?;
     `).all(OrdersID);
     const TotalAmount = OrderDetails.TotalAmount;
-    const SubTotal = TotalAmount - Delivery;
+    
     const VAT = 0.15 * TotalAmount;
+    const SubTotal = TotalAmount - Delivery - VAT;
    const InvoiceOrderDetails = {...OrderDetails, SubTotal, Delivery, VAT}
     return {CustomerInfo, AddressInfo, OrderDetails: InvoiceOrderDetails, OrderItems}
 }

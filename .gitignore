@@ -1,9 +1,11 @@
 # Ignore dependency folders
-node_modules/
-venv/
+node_modules
+venv
 
 # Ignore environment and secret files
 .env
+.env.*
+!.env.example
 
 # Ignore all log files anywhere in the repo
 *.log

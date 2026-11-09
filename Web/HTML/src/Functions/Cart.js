@@ -1,3 +1,4 @@
+import API from '@/Services/API';
 import { ref } from 'vue';
 import { computed } from "vue";
 import { useToast } from "vue-toastification";
@@ -23,16 +24,11 @@ export function UpdateCart() {
 //Using AJAX to fetch each cart item with JSON, Then passing it to localstorage
 async function getCartItem(ProductID) {
     try {
-        const response = await fetch("http://Localhost:3000/api/cartitem",{
-             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
+        const response = await API.post("/api/cartitem", //API.post is the same as fetch when using Axios
+            {
                 ProductID: ProductID
-            })
-        });
-       const CartItem = await response.json();
+            });
+       const CartItem = await response.data;
         return CartItem
     } catch (error) {
         console.error("Could not acces Cart Item:", error);
