@@ -20,6 +20,7 @@
   "homepage": "https://github.com/nysieff-lab/Alpha-X#readme",
   "dependencies": {
     "axios": "^1.21.0",
+    "bcrypt": "^6.0.0",
     "better-sqlite3": "^13.0.3",
     "cors": "^2.8.6",
     "express": "^5.2.1"

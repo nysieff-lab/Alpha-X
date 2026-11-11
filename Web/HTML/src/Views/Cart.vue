@@ -35,7 +35,7 @@
                 <i>Total includes VAT of R{{ SummaryData.VAT }}</i>
                 
             </div>
-            <RouterLink to="/Checkout"><button class="btn">Check Out</button></RouterLink>
+            <button class="btn" v-on:click="CheckStock">Check Out</button>
         </section>
     </div>
 
@@ -56,6 +56,7 @@ import { UpdateCart } from '@/Functions/Cart';
 import { loadCart } from '@/Functions/Cart';
 import { useToast } from "vue-toastification";
 import API from "../Services/API";
+import router from '@/router';
 
 const toast = useToast();
 
@@ -113,11 +114,30 @@ async function GetSummaryData() {
      }
 }
 
+async function CheckStock() {
+    try {
+        const response = await API.post("/api/stockcheck", //API.post is the same as fetch when using Axios
+            Cart.value
+        );
+        if (response.data.Success) {
+            router.push({ path: '/Checkout' });
+        };
+    } catch (error) {
+        if (error.response) {
+            toast.warning(error.response.data.Message);
+        } else {
+            alert("Unable to check stock. Please try again.");
+        };
+    }
+    
+};
+
 // Load cart when page opens
 onMounted(() => {
     loadCart();
     GetSummaryData();
 });
+
 </script>
 
 

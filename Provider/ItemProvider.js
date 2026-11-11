@@ -35,6 +35,7 @@ function GetCartItem(ProductID) {
         c.[CaseModel],
         c.Colour,
         c.Price,
+        c.Image,
         c.StockQuantity
         FROM Phone a
         JOIN Product c
@@ -44,4 +45,28 @@ function GetCartItem(ProductID) {
     return CartItem
 };
 
-module.exports = {GetItem, GetCartItem}
+function CheckStock(Cart) {
+    for (let index = 0; index < Cart.length; index++) {
+            const ProductID = Cart[index].ProductID;
+            const OrdersItemQuantity = Cart[index].Quantity;
+            Inventory = db.prepare(`
+                SELECT StockQuantity
+                FROM Product
+                WHERE ProductID = ?
+            `).get(ProductID);
+            if (OrdersItemQuantity>Inventory.StockQuantity) {
+                return {
+                    Success: false,
+                    Message: `Insufficient stock for Product ${Cart[index].Brand} ${Cart[index].Series} ${Cart[index].PhoneModel} ${Cart[index].CaseModel} ${Cart[index].Colour}. 
+                    Available stock: ${Inventory.StockQuantity}. Please Reduce your order.`
+                }; 
+            };
+            
+        };
+        return {
+            Success: true,
+            Message: "All products have sufficient stock."
+        };
+}
+
+module.exports = {GetItem, GetCartItem, CheckStock}

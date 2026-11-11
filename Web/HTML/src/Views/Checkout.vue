@@ -149,10 +149,30 @@ async function PlaceOrder() {
 
 }
 
+async function CheckStock() {
+    try {
+        const response = await API.post("/api/stockcheck", //API.post is the same as fetch when using Axios
+            Cart.value
+        );
+        if (response.data.Success) {
+            router.push({ path: '/Checkout' });
+        };
+    } catch (error) {
+        if (error.response) {
+            toast.warning(error.response.data.Message);
+            router.push({ path: '/Cart' });
+        } else {
+            alert("Unable to check stock. Please try again.");
+        };
+    }
+    
+};
+
 // Load Checkout when page opens
 onMounted(() => {
     if (CartQuantity.value>0) {
         loadCart();
+        CheckStock();
         GetSummaryData();
     } else {
         router.push({ path: '/Shop' })

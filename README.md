@@ -7,10 +7,14 @@ Our website allows customers to view items by various categories, see the detail
 <--------------INSTRUCTIONS-------------->
 To start the program:
 Make sure no other localhost addresses are running aswell.
-1) Open the terminal and enter: cd Web/HTML Then push enter. Then enter: npm install Then push enter. Then enter: npm run dev Then push enter. 
+1) Open the terminal and enter: npm install Then push enter.
+
+2) Add a new file to the HTML folder called .env Paste the text: VITE_API_URL = http://localhost:3000 And then save the file.
+
+3) Open a New Terminal and enter: cd Web/HTML Then push enter. Then enter: npm install Then push enter. If promted to run npm audit fix do so. Then enter: npm run dev Then push enter. 
 Open your browser and enter the localhost address into the search bar. (Should be http://localhost:5173)
 
-2) Open a New Terminal and enter: cd Web/API Then push enter. Then enter: Node Server Then push enter. 
+4) Open a New Terminal and enter: cd Web/API Then push enter. Then enter: node Server.JS Then push enter. 
 Refresh your browser Window.
 
 <----------Login Page---------->
